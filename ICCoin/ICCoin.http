@@ -1,0 +1,6 @@
+@ICCoin_HostAddress = http://localhost:5230
+
+GET {{ICCoin_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
