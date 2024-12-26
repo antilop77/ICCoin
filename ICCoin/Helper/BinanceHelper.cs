@@ -161,7 +161,7 @@ namespace ICCoin.Helper
             }
         }
 
-        static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
+        public static DateTime UnixTimeStampToDateTime(long unixTimeStamp)
         {
             // Unix zamanı 1 Ocak 1970'ten bu yana geçen saniye sayısına dönüştür
             DateTime unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);

@@ -99,7 +99,7 @@ public class BinanceController : ControllerBase
             try
             {
                 var sonuc2 = await binanceClient.SpotApi.Trading.CancelOrderAsync("BAKEUSDT", orderId: orderId);
-                int c = 1;
+                //int c = 1;
             }
             catch (Exception pExc)
             {

@@ -43,7 +43,11 @@ namespace ICCoin.Workers
             // zaman kilidi için bu satırı aç : 
             //var emirler = _dbContext.ORDERs.Where(x => new[] { "NEW" }.Contains(x.STATUS) && x.INSERT_DATETIME >= DateTime.Now.AddMinutes(-5)).ToList();
             var emirler = _dbContext.ORDERs.Where(x => new[] { "NEW" }.Contains(x.STATUS) ).ToList();
-
+            DateTime dt = BinanceHelper.UnixTimeStampToDateTime(1734708185999);
+            string strDt = dt.ToString("yyyyMMddHHmmss");
+            long lDt = (long)Convert.ToInt64(strDt);
+            Console.WriteLine(DateTime.Now.ToString() + " : " + lDt.ToString());
+            
             foreach (var order in emirler)
             {
                 string quantity = order.QUANTITY.ToString().Replace(',', '.');
