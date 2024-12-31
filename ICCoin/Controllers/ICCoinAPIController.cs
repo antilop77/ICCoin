@@ -1,4 +1,4 @@
-using Binance.Net.Clients;
+﻿using Binance.Net.Clients;
 using Binance.Net.SymbolOrderBooks;
 using ICCoin.Helper;
 using Microsoft.AspNetCore.Mvc;
@@ -9,42 +9,41 @@ namespace ICCoin.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BinanceController : ControllerBase
+public class ICCoinAPIController : ControllerBase
 {
-    private readonly ILogger<BinanceController> _logger;
+    private readonly ILogger<ICCoinAPIController> _logger;
     private readonly string _apiKey;
     private readonly string _secretKey;
 
-    public BinanceController(ILogger<BinanceController> logger)
+    public ICCoinAPIController(ILogger<ICCoinAPIController> logger)
     {
         _logger = logger;
         _apiKey = AppSettings.apiKey;
         _secretKey = AppSettings.secretKey;
     }
 
-    [HttpGet("GetHello")]
-    public IActionResult Get()
+    [HttpGet("getBalances")]
+    public async Task<IActionResult> getBalances(string? pAsset)
     {
-        var client = new BinanceRestClient();
-        var tickersResult = client.SpotApi.ExchangeData.GetTickersAsync();
-        if (!tickersResult.Result.Success)
+        //var optionsApiCredentials = new ApiCredentials(_apiKey, _secretKey); 
+
+        using (var binanceClient = new BinanceRestClient())
         {
-            // Handle error, tickersResult.Error contains more information
+            var balance = await binanceClient.SpotApi.Account.GetBalancesAsync(pAsset);
+
+            if (!balance.Success)
+            {
+                return BadRequest(balance.Error);
+            }
+
+            return Ok(balance.Data);
         }
-        else
-        {
-            // Handle data, tickersResult.Data will contain the actual data
-        }
-
-        var spotSharedRestClients = client.SpotApi.SharedClient;
-
-
-        return new JsonResult(tickersResult.Result.Data);
     }
 
-    [HttpGet("GetOrderBook")]
-    public IActionResult GetOrderBook()
+    [HttpGet("getOrderBook")]
+    public IActionResult getOrderBook()
     {
+        //var book = new BinanceSpotSymbolOrderBook("ETHUSDT");
         var book = new BinanceSpotSymbolOrderBook("ETHUSDT");
         var startResult = book.StartAsync();
         if (!startResult.Result.Success)
@@ -54,47 +53,67 @@ public class BinanceController : ControllerBase
         // Book has successfully started and synchronized
 
         // Once no longer needed you can stop the live sync functionality by calling StopAsync()
+        Thread.Sleep(10000);
         book.StopAsync();
 
         return new JsonResult(startResult.Result.Data);
     }
 
-    [HttpGet("GetBalance")]
-    public async Task<IActionResult> GetBalance()
+    [HttpGet("getTicker")]
+    public IActionResult getTicker(string SYMBOL)
     {
-        //var optionsApiCredentials = new ApiCredentials(_apiKey, _secretKey); 
-
-        using (var binanceClient = new BinanceRestClient())
+        var client = new BinanceRestClient();
+        var tickersResult = client.SpotApi.ExchangeData.GetTickerAsync(SYMBOL); //.GetTickersAsync();
+        if (!tickersResult.Result.Success)
         {
-            var balance = await binanceClient.SpotApi.Account.GetBalancesAsync();
-
-            if (!balance.Success)
-            {
-                return BadRequest(balance.Error);
-            }
-
-            return Ok(balance.Data);
+            // Handle error, tickersResult.Error contains more information
+        }
+        else
+        {
+            // Handle data, tickersResult.Data will contain the actual data
         }
 
+        //var spotSharedRestClients = client.SpotApi.SharedClient;
 
+
+        return new JsonResult(tickersResult.Result.Data);
     }
 
-    [HttpPost("Buy")]
-    public async Task<IActionResult> Buy(string SYMBOL)
+    [HttpPost("postPlaceOrder")]
+    public async Task<IActionResult> postPlaceOrder(string? SYMBOL)
     {
-        // burdan alm�yor. program.cs ye eklendi!!
+        /* CENGIZ
+         * // burdan alm�yor. program.cs ye eklendi!!
         //var optionsApiCredentials = new ApiCredentials(_apiKey, _secretKey); 
 
         using (var binanceClient = new BinanceRestClient())
         {
             //binanceClient.ClientOptions.ApiCredentials = optionsApiCredentials;
-            var sonucallopens = await binanceClient.SpotApi.Trading.GetOpenOrdersAsync();
+            var sonuc = await binanceClient.SpotApi.Trading.PlaceOrderAsync("BAKEUSDT", OrderSide.Buy, SpotOrderType.Limit, 0.1m, price: 50000, timeInForce: TimeInForce.GoodTillCanceled);
+
+
+            if (!sonuc.Success)
+            {
+                return BadRequest(sonuc.Error);
+            }
+
+            return Ok(sonuc.Data);
+        }
+
+        CENGIZ */
+        // burdan almýyor. program.cs ye eklendi!!
+        //var optionsApiCredentials = new ApiCredentials(_apiKey, _secretKey); 
+
+        using (var binanceClient = new BinanceRestClient())
+        {
+            //binanceClient.ClientOptions.ApiCredentials = optionsApiCredentials;
+            var sonucallopens = await binanceClient.SpotApi.Trading.GetOpenOrdersAsync("BTCUSDT");
             string? newClientOrderId = null;
             long? orderId = null;
             var sonuc = await binanceClient.SpotApi.Trading.PlaceOrderAsync("BAKEUSDT", OrderSide.Buy, SpotOrderType.Limit, quantity: 20, price: Decimal.Parse("0.3100")
                 , timeInForce: TimeInForce.GoodTillCanceled, newClientOrderId: newClientOrderId);
 
-            var sonucopens = await binanceClient.SpotApi.Trading.GetOpenOrdersAsync("BAKEUSDT");
+            var sonucopens = await binanceClient.SpotApi.Trading.GetOpenOrdersAsync("BTCUSDT");
             orderId = 1274034100; //1274012796;
             try
             {
@@ -117,7 +136,5 @@ public class BinanceController : ControllerBase
 
             return Ok(sonuc.Data);
         }
-
-
     }
 }

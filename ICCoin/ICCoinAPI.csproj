@@ -7,15 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Binance.Net" Version="10.14.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0" />
     <PackageReference Include="Serilog" Version="4.2.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj" />
-    <ProjectReference Include="..\ICCoin.ServiceDefaults\ICCoin.ServiceDefaults.csproj" />
+    <ProjectReference Include="..\..\Binance.Net\Binance.Net\Binance.Net.csproj" />
+    <ProjectReference Include="..\Data\ICCoinData.csproj" />
+    <ProjectReference Include="..\ICCoin.ServiceDefaults\ICCoinAPI.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

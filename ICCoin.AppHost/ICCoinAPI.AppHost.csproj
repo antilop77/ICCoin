@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ICCoin\ICCoin.csproj" />
+    <ProjectReference Include="..\ICCoin\ICCoinAPI.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,5 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.ICCoin>("iccoin");
+builder.AddProject<Projects.ICCoinAPI>("iccoin");
 
 builder.Build().Run();

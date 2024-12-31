@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoin", "ICCoin\ICCoin.csproj", "{35B689ED-793C-4D57-85FA-F942CAD86275}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoinAPI", "ICCoin\ICCoinAPI.csproj", "{35B689ED-793C-4D57-85FA-F942CAD86275}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data\Data.csproj", "{EAF8AB8C-9156-45D2-B7E9-3C2CB3CCE278}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoinData", "Data\ICCoinData.csproj", "{EAF8AB8C-9156-45D2-B7E9-3C2CB3CCE278}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoin.ServiceDefaults", "ICCoin.ServiceDefaults\ICCoin.ServiceDefaults.csproj", "{F97F9C9D-3E9B-4206-A92A-CC23703FB07F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoinAPI.ServiceDefaults", "ICCoin.ServiceDefaults\ICCoinAPI.ServiceDefaults.csproj", "{F97F9C9D-3E9B-4206-A92A-CC23703FB07F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoin.AppHost", "ICCoin.AppHost\ICCoin.AppHost.csproj", "{EC0A9449-EB24-4357-AC00-459E27323883}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICCoinAPI.AppHost", "ICCoin.AppHost\ICCoinAPI.AppHost.csproj", "{EC0A9449-EB24-4357-AC00-459E27323883}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Binance.Net", "..\Binance.Net\Binance.Net\Binance.Net.csproj", "{73F04BE1-092E-4068-B4AB-0256D36DDE98}"
 EndProject
